@@ -2,7 +2,9 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const port = 3000;
-const transactions = require('./routes/transactions');
+const digitalWalletRoute = require('./routes/DigitalWalletRoutes');
+const authorization = require('./middlewares/authorization');
+
 
 async function connectToDb() {
     const mongoUriLocal = 'mongodb://admin:usman1234@localhost:27017/demodb?authSource=admin';
@@ -11,7 +13,7 @@ async function connectToDb() {
     try {
 
         const res = await mongoose.connect(mongoUriLocal);
-        console.log("DataBase Successfully Connected: ");
+        console.log("DataBase Successfully Connected");
     }
     catch(err)
     {
@@ -19,7 +21,8 @@ async function connectToDb() {
     }
 }
 
-app.use('/transactions', transactions);
+app.use('/', authorization);
+app.use('/digitalwallet', digitalWalletRoute);
 
 app.listen(port, ()=>{
     console.log("Server Listening to Port: " + port);
