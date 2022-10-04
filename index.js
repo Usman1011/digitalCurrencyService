@@ -3,7 +3,9 @@ const app = express();
 const mongoose = require('mongoose');
 const port = 3000;
 const digitalWalletRoute = require('./routes/DigitalWalletRoutes');
+const userRoute = require('./routes/userRoutes');
 const authorization = require('./middlewares/authorization');
+var bodyParser = require('body-parser')
 
 
 async function connectToDb() {
@@ -21,6 +23,9 @@ async function connectToDb() {
     }
 }
 
+app.use(bodyParser.json());
+
+app.use('/user', userRoute)
 app.use('/', authorization);
 app.use('/digitalwallet', digitalWalletRoute);
 

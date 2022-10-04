@@ -3,9 +3,11 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
     userId: String,
     name: String,
-    walletId: Number,
+    walletId: String,
     access: [],
-    userMode: String
+    package: String,
+    password: String,
+    token: String
   });
 
 const User = mongoose.model('users', userSchema);

@@ -1,22 +1,34 @@
 const express = require('express');
 const router = express.Router();
 const {resolveToken} = require ('../services/userService');
-const {authenticateUser} = require('../services/userService');
+const {getUserInfo} = require('../services/userService');
 
 
 router.use('/digitalwallet', async (req, res, next) =>{
-    console.log("Authentication MiddleWare");
-    let token = req.get('user-id');
-    let userId = resolveToken(token);
+    console.log("Authentication MiddleWare: ");
 
-    let isUserAuthenticated = await authenticateUser(userId);
-    if(isUserAuthenticated)
+    try
     {
-        console.log("User Authenticated");
-        next();
+        
+        let token = req.get('x-authenticated-user-id');
+        let user = await resolveToken(token);
+        if(user)
+        {
+            req.userId = user.userId;
+            req.walletId = user.walletId;
+            next();
+            
+        }
+        else
+        {
+            res.send("User Not Authenticated");
+        }
     }
-    else
-        res.send("User Not Authenticated");
+    catch(ex)
+    {
+        console.log("User Not authenticated: " + ex);
+        res.send("User Not Authenticated: " + ex);
+    }
     
 });
 
