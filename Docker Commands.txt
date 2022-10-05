@@ -1,0 +1,148 @@
+{
+	"info": {
+		"_postman_id": "280073b1-da6b-46cd-97ee-5173902d9595",
+		"name": "Digital Wallet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17510540"
+	},
+	"item": [
+		{
+			"name": "UpgradeUser",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-authenticated-user-id",
+						"value": "$2b$10$wtDJwnD3eWeILJEUHICmP.DLLAeA0nj6L83Sy4bv8yv5q5rzr4a7m",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/digitalwallet/transaction/upgradeuser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"digitalwallet",
+						"transaction",
+						"upgradeuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TopUpTransaction",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-authenticated-user-id",
+						"value": "$2b$10$wtDJwnD3eWeILJEUHICmP.DLLAeA0nj6L83Sy4bv8yv5q5rzr4a7m",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"amount\": 10000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/digitalwallet/transaction/topup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"digitalwallet",
+						"transaction",
+						"topup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mock Server",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cardNumber\": \"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://633c138ff11701a65f6e38ba.mockapi.io/api/v1/debitcard/card",
+					"protocol": "https",
+					"host": [
+						"633c138ff11701a65f6e38ba",
+						"mockapi",
+						"io"
+					],
+					"path": [
+						"api",
+						"v1",
+						"debitcard",
+						"card"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authentication",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"usman\",\n    \"password\": \"usman1234\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

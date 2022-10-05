@@ -1,0 +1,6 @@
+db.user_wallets.insertOne({walletId: "0001", balance:1300})
+
+db.users.insertOne({userId: "usman", name:"usman", "walletId": "0001", access:[], package: "basic", password: "$2b$10$30TekvSbYRccS2RB2C/sPuluvP6cmBOVGkZLj/iKjIEUaDhwmO1VS",token: ""})
+
+db.packages.insertOne({package: "premium", price:1300})
+

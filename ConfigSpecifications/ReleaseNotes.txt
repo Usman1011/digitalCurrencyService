@@ -1,0 +1,13 @@
+Run Git Clone https://github.com/Usman1011/digitalCurrencyService.git
+
+run docker compose -f index.yaml up
+
+Go to Mongo CLI and run DBScripts provided in the diroctory
+
+Run "docker build ."
+
+Run "docker run -p 3000:3000 -d"
+
+Test APIs from Postman collection
+
+*Genrate Token From Login API And paste it in x-authenticated-user-id field in headers*
