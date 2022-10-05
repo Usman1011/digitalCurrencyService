@@ -10,11 +10,11 @@ var bodyParser = require('body-parser')
 
 async function connectToDb() {
     const mongoUriLocal = 'mongodb://admin:usman1234@localhost:27017/demodb?authSource=admin';
-    const mongoUriDocker = 'mongodb://admin:usman1234@172.20.0.4:27017/demodb?authSource=admin';
+    const mongoUriDocker = 'mongodb://admin:usman1234@demo-mongo:27017/demodb?authSource=admin';
     
     try {
 
-        const res = await mongoose.connect(mongoUriLocal);
+        const res = await mongoose.connect(mongoUriDocker);
         console.log("DataBase Successfully Connected");
     }
     catch(err)

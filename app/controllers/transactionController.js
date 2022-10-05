@@ -21,18 +21,28 @@ router.post('/upgradeuser', async (req, res) =>{
     {
         let price = await getPackagePrice(packages[1]);
         if(price)
-            var debitBalanceResponse = await debitBalance(req.walletId, price);
-        if(debitBalanceResponse.isBalanceDebited)
         {
-            var isUserUpgraded = await upgradeToPremium(req.userId);
-            if(isUserUpgraded)
-                res.send("Transaction Successfull");
+            var debitBalanceResponse = await debitBalance(req.walletId, price);
+            if(debitBalanceResponse.isBalanceDebited)
+            {
+                var isUserUpgraded = await upgradeToPremium(req.userId);
+                if(isUserUpgraded)
+                res.json(
+                    {
+                            responseCode: 0,
+                            description: "Success"
+                    });
+                else
+                    res.send("Transaction Failed");
+            }
             else
-                res.send("Transaction Failed");
+            {
+                res.send("Transaction Failed: " + JSON.stringify(debitBalanceResponse.description));
+            }
         }
         else
         {
-            res.send("Transaction Failed: " + JSON.stringify(debitBalanceResponse.description));
+            res.send("Price Not Configured In DB");
         }
 
         
@@ -43,19 +53,20 @@ router.post('/upgradeuser', async (req, res) =>{
 router.post('/topup', async (req, res) =>{
 
     console.log("Topup Transaction");
+    let {body} = req; 
     try
     {   
-        let mockResponse = await mock();
+        let mockResponse = await mock(body);
         if(mockResponse.responseCode === "000")
         {
             let creditBalanceResponse = creditBalance(req.walletId, req.body.amount);
             if(creditBalanceResponse)
             {
                 res.json(
-                    {
+                {
                         responseCode: 0,
                         description: "Success"
-                    });
+                });
             }
         }
         else

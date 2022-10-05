@@ -12,7 +12,7 @@ const debitBalance = async (walletId, amount) =>{
         let userWallet = await Wallet.findOne({walletId: walletId});
         if( userWallet.balance >= amount)
         {
-            console.log("if Con")
+            
 
             let res = await Wallet.updateOne({walletId:walletId}, {"$inc": {balance: amount*(-1)}})
             if(res.acknowledged)
@@ -22,14 +22,16 @@ const debitBalance = async (walletId, amount) =>{
                 description: "Success"
                 }
             }
+            console.log("Balance Debited Successfully");
         }
         else
         {
-            console.log("else Con")
             debitBalanceResponse = {
                 isBalanceDebited: false,
                 description: "InSufficient Balance"
             }
+            console.log(debitBalanceResponse.description);
+
         }
         
         
@@ -48,7 +50,7 @@ module.exports.debitBalance = debitBalance;
 
 const getPackagePrice = async (package) =>{
 
-    console.log("getPackagePrice Method: " + package);
+    console.log("getPackagePrice Method: ");
     let price = null;
     try
     {
@@ -58,7 +60,7 @@ const getPackagePrice = async (package) =>{
     }
     catch (ex)
     {
-        console.log("Error Fetching Price" + ex); 
+        console.log("Error Fetching Price: " + ex); 
     }
 }
 
@@ -82,18 +84,19 @@ const creditBalance = async (walletId, amount) =>{
 
 module.exports.creditBalance = creditBalance;
 
-const mock =async (cardNumber) =>{
+const mock =async (body) =>{
 
         console.log("Mock Service");
         let response = await axios({
         method: 'post',
         url: 'https://633c138ff11701a65f6e38ba.mockapi.io/api/v1/debitcard/card',
         data: {
-          "cardNumber": cardNumber
+          "cardNumber": body.cardNumber,
+          "amount": body.amount
         }
         });
 
-        console.log("ResponseCode: " + response.data);
+        console.log("ResponseCode: ");
         return response.data;
         
 }
